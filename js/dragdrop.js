@@ -1,3 +1,7 @@
+// backbone-dragdrop.js 0.0.1
+
+// (c) 2012-2013 Somnath Kokane.
+// Backbone-DragDrop may be freely distributed under the MIT license.
 (function(root, View, DragDrop, Drag, Drop, Poly){
 	
 	var View = View(),

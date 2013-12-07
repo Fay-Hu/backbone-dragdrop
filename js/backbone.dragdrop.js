@@ -1,4 +1,7 @@
+// backbone-dragdrop.js 0.0.1
 
+// (c) 2012-2013 Somnath Kokane.
+// Backbone-DragDrop may be freely distributed under the MIT license.
 (function(root, View, DragDrop, Drag, Drop, Poly){
 	
 	var View = View(),
@@ -55,17 +58,12 @@
 		dropProto = use.Drop.prototype,
 		DragDrop;
 		
-	return DragDrop = View.extend(_.extend(
-		{},
-		dragProto,
-		dropProto,
-		{
+	return DragDrop = View.extend(_.extend({}, dragProto, dropProto, {
 			initialize: function(){
 				proto.initialize.apply(this, arguments);
 			},
 			events: _.extend({}, dragProto.events, dropProto.events)
-		}
-	), {
+		}), {
 		View: View,
 		Drag: use.Drag,
 		Drop: use.Drop,

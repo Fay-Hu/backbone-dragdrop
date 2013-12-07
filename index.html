@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+	<head>
+		<title>HTML5 Drag &amp; Drop with Polyfill</title>
+		<meta charset="utf-8">
+		<style type="text/css">
+			
+			#dragme {
+				background-color: #BBD8E9;
+				border-radius: 3px;
+				padding: 14px;
+				text-align: center;
+				width: 200px;
+			}
+			#dragme[draggable] {
+				cursor: move;
+			}
+			#dropzone, #dragzone {
+				padding: 20px;
+				margin: 10px;
+				width: 250px;
+				height: 150px;
+				border: 1px dashed #111;
+			}
+		</style>
+		<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
+		<script src="js/dragdrop.js"></script>
+		<script>
+			$(function(){
+				var dragProto = DragDrop.Drag.prototype,
+					dropProto = DragDrop.Drop.prototype,
+					Drag, Drop,
+					drag, drop;
+					
+				Drag = DragDrop.Drag.extend({
+					el: '#dragme',
+					dragStart: function(event){ // event dragstart
+						dragProto.dragStart.call(this, event);
+						this.dt.setData('Text', '#dragme');
+					}
+				});
+				
+				Drop = DragDrop.Drop.extend({
+					el: '#dropzone',
+					dragDrop: function(event){ // event dragdrop
+						dropProto.dragDrop.call(this, event);
+						var dragItem = $(this.dt.getData('Text')).text('Dropped').removeAttr('draggable');
+						this.$el.append(dragItem);
+						return false;
+					}
+				});
+				
+				drag = new Drag();
+				drop = new Drop();
+			});
+			
+		</script>
+	</head>
+	<body>
+		<div id="dragzone">
+			<div id="dragme" draggable="true">Drag Me</div>
+		</div>
+		<div style="clear:both"></div>
+		<div id="dropzone"></div>
+	</body>
+</html>
